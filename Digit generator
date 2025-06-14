@@ -1,0 +1,50 @@
+import { useEffect, useState } from "react";
+
+import "./styles.css";
+
+export default function App() {
+  const [num, setNum] = useState(Array(4).fill(""));
+  const [pass, setpass] = useState("");
+
+  const handleChange = (e, i) => {
+    const value = e.target.value;
+    const newNums = [...num];
+    newNums[i] = value;
+    setNum(newNums);
+  };
+
+  const handleSubmit = () => {
+ 
+    let p = num.join("");
+    if (p === pass) {
+      alert("Successfull");
+    } else {
+      alert("Failed");
+    }
+  };
+
+  const generatePassword = () => {
+    const password = Math.floor(1000 + Math.random() * 9000).toString();
+    setpass(password);
+  };
+
+  return (
+    <>
+      <button onClick={generatePassword}>create Password </button>
+      {pass}
+      <div style={{ padding: "2rem", fontFamily: "Arial", display: "flex" }}>
+        {num.map((e, i) => {
+          return (
+            <input
+              type="number"
+              value={num[i]}
+              onChange={(e) => handleChange(e, i)}
+              style={{ width: "40px", height: "40px" }}
+            />
+          );
+        })}
+        <button onClick={handleSubmit}>Submit</button>
+      </div>
+    </>
+  );
+}
