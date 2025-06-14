@@ -1,0 +1,65 @@
+import { useState } from "react";
+import "./styles.css";
+import data from "./data.json";
+
+export default function App() {
+  const [show, setShow] = useState(null);
+
+  const handleOpen = (index) => {
+    setShow((prev) => (prev === index ? null : index));
+  };
+  return (
+    <div className="App">
+      <h1>Accordion</h1>
+      <div className="main">
+        {data.map((e, index) => {
+          return (
+            <>
+              <div
+                onClick={() => handleOpen(index)}
+                className="inner_container"
+              >
+                <p className="question">{e.question}</p>
+                {show === index && (
+                  <div>
+                    <p className="answer">{e.answer}</p>
+                  </div>
+                )}
+              </div>
+            </>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
+
+//css
+
+
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  background-color: aqua;
+}
+
+.inner_container {
+  border: 2px solid black;
+  margin-bottom: 5px;
+  text-align: left;
+  background-color: beige;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.question {
+  font-weight: bolder;
+}
+
