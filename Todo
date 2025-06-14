@@ -1,0 +1,81 @@
+import { useEffect, useState } from "react";
+
+import "./styles.css";
+
+export default function App() {
+  const [input, setInput] = useState("");
+  const [todo, setTodo] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    if (!input.trim()) return;
+
+    if (editIndex !== null) {
+      setTodo((prev) =>
+        prev.map((item, i) =>
+          i === editIndex ? { ...item, todo: input } : item
+        )
+      );
+      setEditIndex(null);
+    } else {
+      setTodo((prev) => [...prev, { todo: input, isCompleted: false }]);
+    }
+
+    setInput("");
+  };
+
+  const handleComplete = (index) => {
+    setTodo((prev) =>
+      prev.map((item, i) =>
+        i === index ? { ...item, isCompleted: !item.isCompleted } : item
+      )
+    );
+  };
+
+  const handleEdit = (index) => {
+    setEditIndex(index);
+    setInput(todo[index].todo);
+  };
+
+  const handleDelete = (index) => {
+    setTodo((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  return (
+    <>
+      <div style={{ padding: "2rem", fontFamily: "Arial" }}>
+        <input
+          type="text"
+          placeholder="Type Todo here"
+          onChange={handleChange}
+          value={input}
+        />
+        <button onClick={handleSubmit}>{editIndex ? "save" : "submit"}</button>
+      </div>
+      <div>
+        {todo?.map((e, i) => {
+          return (
+            <div key={i} style={{ display: "flex" }}>
+              <p
+                style={{
+                  marginRight: "10px",
+                  textDecoration: e.isCompleted ? "line-through" : "none",
+                }}
+              >
+                {e.todo}{" "}
+              </p>
+              <button onClick={() => handleComplete(i)}>Completed</button>
+              <button onClick={() => handleEdit(i)}>Edit </button>
+              <button onClick={() => handleDelete(i)}>Delete </button>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+}
+
+// Dummy data
