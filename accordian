@@ -34,6 +34,48 @@ export default function App() {
   );
 }
 
+[
+  {
+    "question": "What is the output of `console.log(typeof null)` in JavaScript?",
+    "answer": "object"
+  },
+  {
+    "question": "Which lifecycle method is invoked after a component is mounted in React?",
+    "answer": "componentDidMount"
+  },
+  {
+    "question": "What does CI/CD stand for?",
+    "answer": "Continuous Integration / Continuous Deployment"
+  },
+  {
+    "question": "What method is used to create a promise in JavaScript?",
+    "answer": "new Promise()"
+  },
+  {
+    "question": "What does 'this' keyword refer to in JavaScript inside a regular function?",
+    "answer": "The object that calls the function"
+  },
+  {
+    "question": "What is the purpose of 'useEffect' in React?",
+    "answer": "To handle side effects in functional components"
+  },
+  {
+    "question": "What is the default HTTP method when submitting an HTML form?",
+    "answer": "GET"
+  },
+  {
+    "question": "Which command is used to initialize a Git repository?",
+    "answer": "git init"
+  },
+  {
+    "question": "What does the acronym API stand for?",
+    "answer": "Application Programming Interface"
+  },
+  {
+    "question": "Which protocol is used to fetch web pages?",
+    "answer": "HTTP"
+  }
+]
 
 
 
