@@ -1,0 +1,93 @@
+import { useState } from "react";
+import "./styles.css";
+
+export default function App() {
+  const [matrix, setMatrix] = useState(Array(9).fill(null));
+  const [isXTurn, setIsXTurn] = useState(true);
+
+  const handleClick = (index) => {
+    if (matrix[index] !== null) return;
+
+    const newMatrix = [...matrix];
+    newMatrix[index] = isXTurn ? "X" : "O";
+    setMatrix(newMatrix);
+    setIsXTurn(!isXTurn);
+
+    const winner = checkWin(newMatrix);
+    if (winner) {
+      setTimeout(() => {
+        alert(`${winner} wins!`);
+      }, 100);
+    }
+  };
+
+  const checkWin = (matrix) => {
+    let arr = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    for (combo of arr) {
+      const [a, b, c] = combo;
+      if (matrix[a] && matrix[a] == matrix[b] && matrix[a] === matrix[c]) {
+        return matrix[a];
+      }
+    }
+    return null;
+  };
+
+  return (
+    <div className="App">
+      <h1>Tik Tok Toe</h1>
+      <div className="body">
+        {matrix.map((value, index) => {
+          return (
+            <div
+              key={index}
+              className="matrix"
+              onClick={() => handleClick(index)}
+            >
+              {value}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+
+
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  background-color: aqua;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.matrix {
+  background-color: #e0e0e0;
+  border: 2px solid #333;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
