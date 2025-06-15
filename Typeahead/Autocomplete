@@ -1,0 +1,84 @@
+import { useEffect, useState } from "react";
+
+import "./styles.css";
+const fruits = [
+  "Apple",
+  "Apricot",
+  "Avocado",
+  "Banana",
+  "Blackberry",
+  "Blueberry",
+  "Cherry",
+  "Coconut",
+  "Grapes",
+  "Guava",
+  "Kiwi",
+  "Lemon",
+  "Lime",
+  "Mango",
+  "Orange",
+  "Papaya",
+  "Peach",
+  "Pear",
+  "Pineapple",
+  "Plum",
+  "Strawberry",
+  "Watermelon",
+];
+
+export default function App() {
+  const [input, setInput] = useState("");
+  const [result, setResult] = useState([]);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setInput(value);
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (input.trim() === "") {
+        setResult([]);
+      } else {
+        const filtered = fruits.filter((fruit) =>
+          fruit.toLowerCase().includes(input.toLowerCase())
+        );
+        setResult(filtered);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [input]);
+
+  const handleSearch = () => {
+    console.log(result);
+  };
+
+  return (
+    <>
+      <div>
+        <input
+          placeholder="search for fruits"
+          type="text"
+          onChange={handleChange}
+        />
+        <button onClick={handleSearch}>search</button>
+      </div>
+      <div>
+        {input && result.length === 0 ? (
+          <p>No match found</p>
+        ) : (
+          result?.map((e) => {
+            return (
+              <>
+                <div>
+                  <p>{e}</p>
+                </div>
+              </>
+            );
+          })
+        )}
+      </div>
+    </>
+  );
+}
